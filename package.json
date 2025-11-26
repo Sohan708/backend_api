@@ -1,0 +1,27 @@
+{
+  "name": "backend_api",
+  "version": "1.0.0",
+  "description": "A backend API service for the Flutter application.",
+  "homepage": "https://github.com/Sohan708/backend_api#readme",
+  "bugs": {
+    "url": "https://github.com/Sohan708/backend_api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sohan708/backend_api.git"
+  },
+  "license": "ISC",
+  "author": "Mia Sohan",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
