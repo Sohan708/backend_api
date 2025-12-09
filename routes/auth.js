@@ -11,20 +11,20 @@ authRouter.post('/api/signup', async (req, res) => {
 
     if (existingEmail) {
       return res.status(400).json({ msg: "user with same email already exists" });
+    } else {
+      // Validate password length BEFORE hashing
+      if (!password || password.length < 8) {
+        return res.status(400).json({ msg: "Password must be at least 8 characters long" });
+      } else {
+        //Generate salt and hash password
+        const salt = await bcrypt.genSalt(10);
+        //hash the password using the generated salt
+        const hashedPassword = await bcrypt.hash(password, salt);
+        let user = new User({ fullName, email, password: hashedPassword });
+        await user.save();
+        res.json({ user });
+      }
     }
-
-    // Validate password length BEFORE hashing
-    if (!password || password.length < 8) {
-      return res.status(400).json({ msg: "Password must be at least 8 characters long" });
-    }
-
-    //Generate salt and hash password
-    const salt = await bcrypt.genSalt(10);
-    //hash the password using the generated salt
-    const hashedPassword = await bcrypt.hash(password, salt);
-    let user = new User({ fullName, email, password: hashedPassword });
-    await user.save();
-    res.json({ user });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -51,7 +51,7 @@ authRouter.post('/api/signin', async (req, res) => {
         //remove sensitive information
         const { password, ...userWithoutPassword } = findUser._doc;
         //send response
-        res.json({ token, userWithoutPassword });
+        res.json({ token, user: userWithoutPassword });
       }
     }
   } catch (e) {
