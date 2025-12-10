@@ -8,6 +8,7 @@ const subcategoryRouter = require("./routes/sub_category");
 const productRouter = require("./routes/product");
 const productReviewRouter = require("./routes/product_review");
 const cors = require("cors");
+const vendorRouter = require("./routes/vendor");
 //create the app
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(catagoryRouter);
 app.use(subcategoryRouter);
 app.use(productRouter);
 app.use(productReviewRouter);
+app.use(vendorRouter);
 //connect to mongodb
 mongoose.connect(DB).then(() => console.log("Connected to MongoDB"));
 
